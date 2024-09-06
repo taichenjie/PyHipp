@@ -8,9 +8,9 @@
 #SBATCH --nodes=1   # number of nodes
 #SBATCH --cpus-per-task=5   # number of CPUs for this task
 
-#SBATCH -J "rs3"   # job name
-#SBATCH -o rs3-slurm.%N.%j.out # STDOUT
-#SBATCH -e rs3-slurm.%N.%j.err # STDERR
+#SBATCH -J "rs4"   # job name
+#SBATCH -o rs4-slurm.%N.%j.out # STDOUT
+#SBATCH -e rs4-slurm.%N.%j.err # STDERR
 
 
 
@@ -23,11 +23,11 @@ import os; \
 import time; \
 t0 = time.time(); \
 print(time.localtime()); \
-DPT.objects.processDirs(dirs=None, objtype=pyh.RPLSplit, channel=[*range(65,97)]); \
-DPT.objects.processDirs(dirs=['sessioneye/array03','session01/array03'], cmd='import PyHipp as pyh; import DataProcessingTools as DPT; DPT.objects.processDirs(None, pyh.RPLLFP, saveLevel=1); DPT.objects.processDirs(None, pyh.RPLHighPass, saveLevel=1);'); \
+DPT.objects.processDirs(dirs=None, objtype=pyh.RPLSplit, channel=[*range(97,125)]); \
+DPT.objects.processDirs(dirs=['sessioneye/array04','session01/array04'], cmd='import PyHipp as pyh; import DataProcessingTools as DPT; DPT.objects.processDirs(None, pyh.RPLLFP, saveLevel=1); DPT.objects.processDirs(None, pyh.RPLHighPass, saveLevel=1);'); \
 os.chdir('session01/array01'); \
 DPT.objects.processDirs(level='channel', cmd='import PyHipp as pyh; from PyHipp import mountain_batch; mountain_batch.mountain_batch(); from PyHipp import export_mountain_cells; export_mountain_cells.export_mountain_cells();'); \
 print(time.localtime()); \
 print(time.time()-t0);"
 
-aws sns publish --topic-arn arn:aws:sns:ap-southeast-1:888577022958:awsnotify --message "RS3 JobDone for channels 65 to 96"
+aws sns publish --topic-arn arn:aws:sns:ap-southeast-1:888577022958:awsnotify --message "RS4 JobDone for channels 96 to 124"
