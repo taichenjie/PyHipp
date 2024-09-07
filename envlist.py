@@ -20,6 +20,7 @@ if nargs > 3:
     print('Usage: envlist; envlist env; envlist envprefix nenvs')
     exit
 elif nargs > 2:
+    # nargs = 3, "path", "envname", "number of envs"
     # creates or re-creates the list of environments
     pmode = RESET_MODE
     # get prefix for environment name
@@ -27,11 +28,13 @@ elif nargs > 2:
     # get number of environments to create
     nenvs = sys.argv[2]
 elif nargs > 1:
+    # nargs = 2, "path", "env to add"
     # returns env to the list of environments
     pmode = WRITE_MODE
     # get name of environment to return
     env = sys.argv[1]
 else:
+    # nargs = 1, "path", "env to use"
     # gets name of an environment to use
     pmode = READ_MODE
 
@@ -40,9 +43,10 @@ lock = FileLock(lock_path, timeout=time_out_secs)
 
 with lock:
     if pmode == RESET_MODE:
-        # create a list (named clist) of nevns environments with the 
-        # prefix envprefix
+        # create a list (named clist) of nevns environments with the
+	# prefix envprefix
         # add code here
+        clist = [f"{envprefix}{i}" for i in range(int(nenvs))]
     else:
         # load hickle file
         clist = hickle.load(file_path)
@@ -50,9 +54,11 @@ with lock:
         if pmode == WRITE_MODE:
             # append item to end of list
             # add code here
-        else:    
+            clist.append(env)
+        else:
             # get and remove env from clist
             # add code here
+            env = clist.pop(0)
             # return env name
             print(env)
 
