@@ -46,6 +46,7 @@ with lock:
         # create a list (named clist) of nevns environments with the
 	# prefix envprefix
         # add code here
+        clist1 = [*range(0,int(nenvs),1)]
         clist = [envprefix + str(s) for s in clist1]
     else:
         # load hickle file
